@@ -12,6 +12,7 @@ class TopFilms(BasePage):
         self.filters = ButtonFilterList(self.driver, By.CSS_SELECTOR, ".styles_root__omMgy")
         self.drop_filters = DropDownFilterList(self.driver, By.CSS_SELECTOR, '.styles_selectButton__4xHt7')
         self.advertising = Element(self.driver, By.CSS_SELECTOR, '.styles_container__XXCpX ')
+        self.list_film = Element(self.driver, By.CSS_SELECTOR, ".styles_mainTitle__IFQyZ")
 
     def check_filters(self, filters: list):
         """Проверка, что фильтры присутствуют на странице"""
@@ -25,8 +26,14 @@ class TopFilms(BasePage):
         self.check_filters(["Фильмы", "Сериалы", "С высоким рейтингом", "Российские", "Зарубежные", "Вышедшие",
                             "Скрыть просмотренные", "Загрузить на смартфоне"])
 
-    def select_user(self, text: str):
-        pass
+    def get_films(self) -> list:
+        """Получить список фильмов на странице"""
+
+        lst = self.list_film.find_elements()
+        for i, elem in enumerate(lst):
+            lst[i] = elem.text
+
+        return lst
     '''def check_load_page(self):
         customer = self.find_element(*TopFilmsLocators.FILTERS)
         customer.is_displayed()

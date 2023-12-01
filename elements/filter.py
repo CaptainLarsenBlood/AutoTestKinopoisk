@@ -66,6 +66,7 @@ class DropDownFilterList(FilterList):
         for el in item_list:
             if el.text == item_menu:
                 el.click()
+                break
         assert self.filter_dict[filter_name].text == item_menu, f"Фильтр {item_menu} не выбрался"
 
 
