@@ -14,17 +14,25 @@ class TopFilms(BasePage):
         self.advertising = Element(self.driver, By.CSS_SELECTOR, '.styles_container__XXCpX ')
         self.list_film = Element(self.driver, By.CSS_SELECTOR, ".styles_mainTitle__IFQyZ")
 
-    def check_filters(self, filters: list):
-        """Проверка, что фильтры присутствуют на странице"""
+    def check_button_filters(self, filters: list):
+        """Проверка, что кнопочные фильтры присутствуют на странице"""
 
         for i in filters:
             assert i in self.filters.filter_dict, f"фильтр {i} не найден на странице"
 
+    def check_dropdown_filters(self, filters: list):
+        """Проверка, что выпадающие фильтры присутствуют на странице"""
+
+        for i in filters:
+            assert i in self.drop_filters.filter_dict, f"фильтр {i} не найден на странице"
+
     def check_load_page(self):
         self.advertising.check_visible(12)
         self.filters.check_load_filters()
-        self.check_filters(["Фильмы", "Сериалы", "С высоким рейтингом", "Российские", "Зарубежные", "Вышедшие",
+        self.check_button_filters(["Фильмы", "Сериалы", "С высоким рейтингом", "Российские", "Зарубежные", "Вышедшие",
                             "Скрыть просмотренные", "Загрузить на смартфоне"])
+        self.drop_filters.check_load_filters()
+        self.check_dropdown_filters(["Все страны", "Все жанры", "Все Годы"])
 
     def get_films(self) -> list:
         """Получить список фильмов на странице"""
@@ -34,15 +42,3 @@ class TopFilms(BasePage):
             lst[i] = elem.text
 
         return lst
-    '''def check_load_page(self):
-        customer = self.find_element(*TopFilmsLocators.FILTERS)
-        customer.is_displayed()
-
-    def select_login_type(self, custom: bool = True):
-        if custom:
-            self.browser.find_element(*LoginPageLocators.CUSTOMER_LOGIN).click()
-        else:
-            self.browser.find_element(*LoginPageLocators.MANAGER_LOGIN).click()
-
-    def login(self):
-        self.browser.find_element(*LoginPageLocators.LOGIN).click()'''

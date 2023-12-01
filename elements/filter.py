@@ -12,7 +12,7 @@ class FilterList(Element):
     def __init__(self, driver, strategy, locator):
         super().__init__(driver, strategy, locator)
 
-    def get_filters(self):
+    def check_load_filters(self):
         """Получить словарь - название фильтра: webElement"""
 
         lst_filter = self.find_elements()
@@ -21,10 +21,6 @@ class FilterList(Element):
             raise Exception("Фильтры не найдены")
         for el in lst_filter:
             self.filter_dict[el.text] = el
-
-    def check_load_filters(self):
-        self.get_filters()
-        assert len(self.filter_dict) != 0, "Фильтры не загрузились"
 
 
 class ButtonFilterList(FilterList):
@@ -41,7 +37,9 @@ class ButtonFilterList(FilterList):
 
         self.check_load_filters()
         self.filter_dict[text].click()
-        assert "styles_active" in self.filter_dict[text].get_attribute("class"), f"Фильтр {text} не выбрался"
+
+        if "styles_active" not in self.filter_dict[text].get_attribute("class"):
+            raise Exception(f"Фильтр {text} не выделен цветом")
 
 
 class DropDownFilterList(FilterList):
@@ -67,8 +65,6 @@ class DropDownFilterList(FilterList):
             if el.text == item_menu:
                 el.click()
                 break
-        assert self.filter_dict[filter_name].text == item_menu, f"Фильтр {item_menu} не выбрался"
 
-
-
-
+        if self.filter_dict[filter_name].text != item_menu:
+            raise Exception(f"Фильтр {item_menu} не выбран")
