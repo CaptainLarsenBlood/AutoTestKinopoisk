@@ -63,15 +63,6 @@ class ButtonFilterList(Element):
 
         return self.filter_dict
 
-    def check_filters(self, filters: list):
-        """Проверка, что фильтры присутствуют на странице"""
-
-        if len(self.filter_dict) == 0:
-            self.get_filters()
-
-        for i in filters:
-            assert i in self.filter_dict, f"фильтр {i} не найден на странице"
-
     def select_filter(self, text):
         """Выбор фильтра"""
 

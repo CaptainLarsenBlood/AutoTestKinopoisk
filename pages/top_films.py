@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
-from elements.basic_elements import ButtonFilterList
+from elements.filter import ButtonFilterList
 
 
 class TopFilms(BasePage):
@@ -11,8 +11,16 @@ class TopFilms(BasePage):
         super().__init__(driver, url)
         self.filters = ButtonFilterList(self.driver, By.CSS_SELECTOR, ".styles_root__omMgy")
 
+    def check_filters(self, filters: list):
+        """Проверка, что фильтры присутствуют на странице"""
+
+        self.filters.get_filters()
+
+        for i in filters:
+            assert i in self.filters.filter_dict, f"фильтр {i} не найден на странице"
+
     def check_load_page(self):
-        self.filters.check_filters(["Фильмы", "Сериалы", "С высоким рейтингом", "Российские", "Зарубежные", "Вышедшие",
+        self.check_filters(["Фильмы", "Сериалы", "С высоким рейтингом", "Российские", "Зарубежные", "Вышедшие",
                                    "Скрыть просмотренные", "Загрузить на смартфоне"])
 
     '''def select_user(self, text: str):
