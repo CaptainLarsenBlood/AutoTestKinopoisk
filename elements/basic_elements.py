@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Element:
     """Базовый класс для всех элементов"""
 
-    def __init__(self, driver, strategy, locator):
+    def __init__(self, driver, strategy, locator, rus_name):
 
         self.driver = driver
         self.locator = (strategy, locator)

@@ -9,10 +9,10 @@ class TopFilms(BasePage):
 
     def __init__(self, driver, url):
         super().__init__(driver, url)
-        self.filters = ButtonFilterList(self.driver, By.CSS_SELECTOR, ".styles_root__omMgy")
-        self.drop_filters = DropDownFilterList(self.driver, By.CSS_SELECTOR, '.styles_selectButton__4xHt7')
-        self.advertising = Element(self.driver, By.CSS_SELECTOR, '.styles_container__XXCpX ')
-        self.list_film = Element(self.driver, By.CSS_SELECTOR, ".styles_mainTitle__IFQyZ")
+        self.filters = ButtonFilterList(self.driver, By.CSS_SELECTOR, ".styles_root__omMgy", rus_name="Фильтры кнопки")
+        self.drop_filters = DropDownFilterList(self.driver, By.CSS_SELECTOR, '.styles_selectButton__4xHt7', rus_name="Выпадающие фильтры")
+        self.advertising = Element(self.driver, By.CSS_SELECTOR, '.styles_container__XXCpX ', rus_name="Реклама")
+        self.list_film = Element(self.driver, By.CSS_SELECTOR, ".styles_mainTitle__IFQyZ", rus_name="Список фильмов")
 
     def check_button_filters(self, filters: list):
         """Проверка, что кнопочные фильтры присутствуют на странице"""

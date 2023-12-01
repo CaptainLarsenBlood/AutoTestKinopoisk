@@ -9,8 +9,8 @@ class FilterList(Element):
 
     filter_dict = {}
 
-    def __init__(self, driver, strategy, locator):
-        super().__init__(driver, strategy, locator)
+    def __init__(self, driver, strategy, locator, rus_name):
+        super().__init__(driver, strategy, locator, rus_name)
 
     def check_load_filters(self):
         """Получить словарь - название фильтра: webElement"""
@@ -28,8 +28,8 @@ class ButtonFilterList(FilterList):
 
     filter_dict = {}
 
-    def __init__(self, driver, strategy, locator):
-        super().__init__(driver, strategy, locator)
+    def __init__(self, driver, strategy, locator, rus_name):
+        super().__init__(driver, strategy, locator, rus_name)
 
     def select_filter(self, text: str):
         """Выбор фильтра
@@ -47,8 +47,8 @@ class DropDownFilterList(FilterList):
 
     filter_dict = {}
 
-    def __init__(self, driver, strategy, locator):
-        super().__init__(driver, strategy, locator)
+    def __init__(self, driver, strategy, locator, rus_name):
+        super().__init__(driver, strategy, locator, rus_name)
 
     def select_filter(self, filter_name: str, item_menu: str):
         """Выбрать значение из выпадающего фильтра
@@ -65,6 +65,8 @@ class DropDownFilterList(FilterList):
             if el.text == item_menu:
                 el.click()
                 break
+        else:
+            raise Exception(f"Пункт меню {item_menu} не найден")
 
         if self.filter_dict[filter_name].text != item_menu:
             raise Exception(f"Фильтр {item_menu} не выбран")
