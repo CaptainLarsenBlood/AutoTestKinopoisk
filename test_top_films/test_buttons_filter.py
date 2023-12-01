@@ -15,7 +15,7 @@ class TestMain(BaseTest):
         with allure.step("Переходим на страницу топ 250"):
             self.top_films.go_to_site()
             self.top_films.check_load_page()
-            self.top_films.filters.select_filter("Фильмы")
+            self.top_films.drop_filters.select_filter("Все жанры", "Боевики")
 
     @allure.title("Переходим на страницу топ 250")
     def test_02_guest_can_go_to_login_page_2(self):

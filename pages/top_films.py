@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
-from selenium.webdriver.support.ui import Select
+from elements.basic_elements import Element
 from selenium.webdriver.common.by import By
-from elements.filter import ButtonFilterList
+from elements.filter import ButtonFilterList, DropDownFilterList
 
 
 class TopFilms(BasePage):
@@ -10,24 +10,24 @@ class TopFilms(BasePage):
     def __init__(self, driver, url):
         super().__init__(driver, url)
         self.filters = ButtonFilterList(self.driver, By.CSS_SELECTOR, ".styles_root__omMgy")
+        self.drop_filters = DropDownFilterList(self.driver, By.CSS_SELECTOR, '.styles_selectButton__4xHt7')
+        self.advertising = Element(self.driver, By.CSS_SELECTOR, '.styles_container__XXCpX ')
 
     def check_filters(self, filters: list):
         """Проверка, что фильтры присутствуют на странице"""
-
-        self.filters.get_filters()
 
         for i in filters:
             assert i in self.filters.filter_dict, f"фильтр {i} не найден на странице"
 
     def check_load_page(self):
+        self.advertising.check_visible(12)
+        self.filters.check_load_filters()
         self.check_filters(["Фильмы", "Сериалы", "С высоким рейтингом", "Российские", "Зарубежные", "Вышедшие",
-                                   "Скрыть просмотренные", "Загрузить на смартфоне"])
+                            "Скрыть просмотренные", "Загрузить на смартфоне"])
 
-    '''def select_user(self, text: str):
-        select = Select(self.browser.find_element(By.ID, 'userSelect'))
-        select.select_by_visible_text(text)
-
-    def check_load_page(self):
+    def select_user(self, text: str):
+        pass
+    '''def check_load_page(self):
         customer = self.find_element(*TopFilmsLocators.FILTERS)
         customer.is_displayed()
 
