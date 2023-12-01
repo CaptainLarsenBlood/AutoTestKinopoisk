@@ -32,7 +32,7 @@ class TopFilms(BasePage):
         self.check_button_filters(["Фильмы", "Сериалы", "С высоким рейтингом", "Российские", "Зарубежные", "Вышедшие",
                             "Скрыть просмотренные", "Загрузить на смартфоне"])
         self.drop_filters.check_load_filters()
-        self.check_dropdown_filters(["Все страны", "Все жанры", "Все Годы"])
+        self.check_dropdown_filters(["Все страны", "Все жанры", "Все годы"])
 
     def get_films(self) -> list:
         """Получить список фильмов на странице"""

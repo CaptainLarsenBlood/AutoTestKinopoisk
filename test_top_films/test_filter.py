@@ -1,5 +1,4 @@
 import allure
-import datetime
 import pytest
 from common import BaseTest
 from pages.top_films import TopFilms
@@ -33,6 +32,7 @@ class TestFilter(BaseTest):
             self.top_films.check_load_page()
 
     @pytest.mark.parametrize("type_filter,list_films", buttons_eth)
+    @allure.title(f"Проверка кнопочного фильтра")
     def test_01_check_button_filters(self, type_filter, list_films):
         """Проверяем все кнопочные фильтры"""
 
@@ -42,6 +42,7 @@ class TestFilter(BaseTest):
                 assert film in list_films, f"Фильма {film} нет в списке"
 
     @pytest.mark.parametrize("type_filter,list_films", dropdown_filter)
+    @allure.title(f"Проверка выпадающего фильтра")
     def test_02_check_dropdown_filters(self, type_filter, list_films):
         """Проверяем выпадающие фильтры"""
 
@@ -51,6 +52,7 @@ class TestFilter(BaseTest):
                 assert film in list_films, f"Фильма {film} нет в списке"
 
     @pytest.mark.parametrize("type_filters,list_films", combination_dropdown)
+    @allure.title(f"Проверка комбинации выпадающих фильтров Страны и Жанры")
     def test_03_combination_dropdown_filters(self, type_filters, list_films):
         """Проверяем комбинацию выпадающих фильтров"""
 
